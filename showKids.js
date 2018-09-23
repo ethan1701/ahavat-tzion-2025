@@ -10,8 +10,14 @@
   
   function showDetails(kid){
       console.log(kid);
-      history.pushState(null, null, '#details');
-      var details = kid.cloneNode(true);
+	  history.pushState(null, null, '#details');
+      var details = $(kid.cloneNode(true));
+	  var address = $(details).find(".address").text();
+	  if (null != address){
+		var googleMap = $("<iframe class='GoogleMap' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?q=" + address + "תל אביב&key=AIzaSyD5MmDTNsejfCHyHBdNRwFUFk8zkTdoyiA' allowfullscreen></iframe>");
+		details.append(googleMap);
+	  }
+	  details.removeAttr("title");
       $("#details").empty().append(details);
       $(".dynamic").addClass("showDetails");
       $("#details").scrollTop(0);
@@ -23,15 +29,15 @@
 
   function mapAddress(address){
       if (null == address) return null;
-      else return "<a href='https://google.co.il/maps/search/" + address + ", תל אביב' target='_blank'>" + address + "</a>"
+      else return "<a href='https://google.co.il/maps/search/" + address + ", תל אביב' target='_blank' title='פתח מפה'>" + address + "</a>"
   }
 
   function getContactInfo(info, type){
     if (null == info) return null;
     if (type=="phone"){
-        return ("<div class= '"+ type +"'><a href='tel:"+info+"' target='_blank'>" + info + "</a><a href='https://api.whatsapp.com/send?phone=972"+info+"' alt='שלח הודעת WhatsApp' target='_blank' class='whatsapp'></a></div>");
+        return ("<div class= '"+ type +"'><a href='tel:"+info+"' title='חייג' target='_blank'>" + info + "</a><a href='https://api.whatsapp.com/send?phone=972"+info+"' title='שלח הודעת WhatsApp' target='_blank' class='whatsapp'></a></div>");
     }else if(type=="email"){
-        return ("<a href='mailto:"+info+"' class='"+ type +"' target='_blank'>" + info + "</a>");
+        return ("<a href='mailto:"+info+"' class='"+ type +"' target='_blank' title='שלח מייל'>" + info + "</a>");
     }else return null;
   }
 

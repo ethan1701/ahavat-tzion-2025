@@ -12,15 +12,19 @@
       console.log(kid);
 	  history.pushState(null, null, '#details');
       var details = $(kid.cloneNode(true));
-	  var address = $(details).find(".address").text();
+	  var address = $(details).find(".addressDetails").text();
 	  if (null != address){
-		var googleMap = $("<iframe class='GoogleMap' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?q=" + address + "תל אביב&key=AIzaSyD5MmDTNsejfCHyHBdNRwFUFk8zkTdoyiA' allowfullscreen></iframe>");
+		var googleMap = $("<div id = 'GoogleMap' class = 'GoogleMap'>");
+	//	var googleMap = $("<iframe class='GoogleMap' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?q=" + address + "תל אביב&key=AIzaSyD5MmDTNsejfCHyHBdNRwFUFk8zkTdoyiA&attribution_source=דף+קשר+א3+אהבת+ציון+תשעט&attribution_web_url=https://ethan1701.github.io/Ahavat-Tzion-2019' allowfullscreen></iframe>");
 		details.append(googleMap);
-	  }
+//		console.log(drawMap(address));
+
+		}
 	  details.removeAttr("title");
       $("#details").empty().append(details);
       $(".dynamic").addClass("showDetails");
       $("#details").scrollTop(0);
+	  drawMap(address);
   }
 
   function hideDetails(){
@@ -29,7 +33,7 @@
 
   function mapAddress(address){
       if (null == address) return null;
-      else return "<a href='https://google.co.il/maps/search/" + address + ", תל אביב' target='_blank' title='פתח מפה'>" + address + "</a>"
+      else return "<a href='https://m.google.co.il/maps/search/" + address + ", תל אביב' target='_blank' title='פתח מפה'>" + address + "</a>"
   }
 
   function getContactInfo(info, type){
@@ -51,6 +55,7 @@
       var name = $("<div class = 'fullName'/>");
       var info = $("<div class='info'/>");
       var address = $("<div class='address'/>");
+	  var addressDetails = $("<div class='addressDetails'/>");
       var dob = $("<div class='dob'/>");
       var contact = $("<div class='contact'/>");
       var parent1 = $("<div class='parent  parent1'/>");
@@ -62,9 +67,11 @@
       div.append(info);
       info.append(dob);
       info.append(address);
+	  info.append(addressDetails);
       div.append(contact);
       name.append(kid["Full Name"]);
       address.append(mapAddress(kid["Address"]));
+	  addressDetails.append(kid["Address For Map"]);
       dob.append(kid["DOB"]);
       parent1.append(kid["Parent1 Full Name"]);
       parent1.append(getContactInfo(kid["Parent 1 phone"], "phone"));
@@ -125,3 +132,14 @@ $.preloadImages = function() {
 }
 
 $.preloadImages("images/print-user.png","images/email-Icon.png","images/phone-icon.png");
+
+/*
+todo:
+use map API instead of embed
+format field address for map, use that
+remove link to map from displayed address
+improve print layout
+small layout tweaks
+get all kids from vaad
+link to contact download
+*/

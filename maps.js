@@ -1,11 +1,11 @@
-jQuery(function($) {
-    // Asynchronously Load the map API 
-	var apiKey = "AIzaSyDVLs9Ns9jb8RyCf8haWZS5JYLfdiP2vDk";
-    var script = document.createElement('script');
-    script.src = "http://maps.googleapis.com/maps/api/js?key=" + apiKey;
-    document.body.appendChild(script);
+// jquery(function($) {
+    // // asynchronously load the map api 
+	// var apikey = "aizasydvls9ns9jb8rycf8hawzs5jylfdip2vdk";
+    // var script = document.createelement('script');
+    // script.src = "http://maps.googleapis.com/maps/api/js?key=" + apikey;
+    // document.body.appendchild(script);
 
-});
+// });
 
 function drawMap(markers) {
 	markers = JSON.parse(markers);

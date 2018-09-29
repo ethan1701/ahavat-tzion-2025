@@ -4,6 +4,7 @@ jquery(function($) {
     var script = document.createelement('script');
     script.src = "http://maps.googleapis.com/maps/api/js?callback=drawMap&key=" + apikey;
     document.body.appendchild(script);
+	console.log('foo');
 
 });
 

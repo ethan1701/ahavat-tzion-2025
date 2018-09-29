@@ -104,8 +104,6 @@
    
       console.log(titles);
       console.log(kids);
-      console.log(kids.kid22);
-      console.log(parent);
       
       for (i in kids){
        drawDetails(parent, kids[i]);
@@ -134,7 +132,7 @@ $.preloadImages("images/print-user.png","images/email-Icon.png","images/phone-ic
 todo:
 O 	use map API instead of embed
 O 	format field address for map, use that
-remove link to map from displayed address
+O	remove link to map from displayed address
 improve print layout
 small layout tweaks
 get all kids from vaad

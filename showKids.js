@@ -15,10 +15,7 @@
 	  var address = $(details).find(".addressDetails").text();
 	  if (null != address){
 		var googleMap = $("<div id = 'GoogleMap' class = 'GoogleMap'>");
-	//	var googleMap = $("<iframe class='GoogleMap' frameborder='0' style='border:0' src='https://www.google.com/maps/embed/v1/place?q=" + address + "תל אביב&key=AIzaSyD5MmDTNsejfCHyHBdNRwFUFk8zkTdoyiA&attribution_source=דף+קשר+א3+אהבת+ציון+תשעט&attribution_web_url=https://ethan1701.github.io/Ahavat-Tzion-2019' allowfullscreen></iframe>");
 		details.append(googleMap);
-//		console.log(drawMap(address));
-
 		}
 	  details.removeAttr("title");
       $("#details").empty().append(details);
@@ -30,7 +27,7 @@
   function hideDetails(){
       $(".dynamic").removeClass("showDetails");
 }
-
+	// deprecated
   function mapAddress(address){
       if (null == address) return null;
       else return "<a href='https://m.google.co.il/maps/search/" + address + ", תל אביב' target='_blank' title='פתח מפה'>" + address + "</a>"
@@ -70,7 +67,7 @@
 	  info.append(addressDetails);
       div.append(contact);
       name.append(kid["Full Name"]);
-      address.append(mapAddress(kid["Address"]));
+      address.append(kid["Address"].replace("\n","<br />"));
 	  addressDetails.append(kid["Address For Map"]);
       dob.append(kid["DOB"]);
       parent1.append(kid["Parent1 Full Name"]);
@@ -135,8 +132,8 @@ $.preloadImages("images/print-user.png","images/email-Icon.png","images/phone-ic
 
 /*
 todo:
-use map API instead of embed
-format field address for map, use that
+O 	use map API instead of embed
+O 	format field address for map, use that
 remove link to map from displayed address
 improve print layout
 small layout tweaks

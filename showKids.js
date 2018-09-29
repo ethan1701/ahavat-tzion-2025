@@ -8,17 +8,49 @@
       return titles[col];
   }
   
-  function showDetails(kid){
+  function showDetails(kidDOM,kid){
       console.log(kid);
 	  history.pushState(null, null, '#details');
-      var details = $(kid.cloneNode(true));
-	  var address = $(details).find(".addressDetails").text();
-	  if (null != address){
-		var googleMap = $("<div id = 'GoogleMap' class = 'GoogleMap'>");
-		details.append(googleMap);
-		}
-	  details.removeAttr("title");
+	  
+	  details = $("<div class = 'kid' />");
+      var imgURL = ("ImageID" in kid)  ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
+      var img = $("<img src='"+ imgURL +"' class='kidpic' />");
+      details.append(img);
+
+      var info = $("<span class='info'/>");
+      var name = $("<div class = 'fullName'/>");
+      var address = $("<div class='address' title='כתובת'/>");
+      var dob = $("<div class='dob' title='תאריך לידה'/>");
+      details.append(info);
+      info.append(name);
+      info.append(dob);
+      info.append(address);	  
+      name.append(kid["Full Name"]);
+      address.append(kid["Address"].replace("\n","<br />"));
+      dob.append(kid["DOB"]);
+	  
+      var contact = $("<div class='contact'/>");
+      var parent1 = $("<div class='parent  parent1'/>");
+      var parent2 = $("<div class='parent  parent2'/>");
+
+      details.append(contact);
+
+      parent1.append(kid["Parent1 Full Name"]);
+      parent1.append(getContactInfo(kid["Parent 1 phone"], "phone"));
+      parent1.append(getContactInfo(kid["Parent 1 Email"], "email"));
+      parent2.append(kid["Parent2 Full Name"]);
+      parent2.append(getContactInfo(kid["Parent 2 phone"], "phone"));
+      parent2.append(getContactInfo(kid["Parent 2 Email"], "email"));
+      contact.append(parent1);
+      if ("Parent2 Full Name" in kid || "Parent 2 phone" in kid || "Parent 2 Email" in kid) {
+      	contact.append(parent2);
+      }
+	  
       $("#details").empty().append(details);
+	  if (null != kid["Address For Map"]){
+		var googleMap = $("<div id = 'GoogleMap' class = 'GoogleMap'>");
+		$("#details").append(googleMap);
+	  }
       $(".dynamic").addClass("showDetails");
       $("#details").scrollTop(0);
 	  drawMap(address);
@@ -43,17 +75,17 @@
   }
 
   function drawDetails(form, kid){
- //     console.log(kid);
+      console.log(kid);
       var container = $("<div class = 'kidContainer' />");
-      var div = $("<div class = 'kid' title='" + kid["Full Name"] + "'/>").click(function(){showDetails(this)});
+      var div = $("<div class = 'kid' title='" + kid["Full Name"] + "'/>").click(function(){showDetails(this,kid)});
    // http://www.husky-owners.com/forum/uploads/monthly_2015_06/558fcc225abae_photo.thumb_jpgsz256.65bbc89b7dc3a7d0047f701989439647
       var imgURL = ("ImageID" in kid)  ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
       var img = $("<img src='"+ imgURL +"' class='kidpic' />");
       var name = $("<div class = 'fullName'/>");
       var info = $("<div class='info'/>");
-      var address = $("<div class='address'/>");
+      var address = $("<div class='address' title='כתובת'/>");
 	  var addressDetails = $("<div class='addressDetails'/>");
-      var dob = $("<div class='dob'/>");
+      var dob = $("<div class='dob' title='תאריך לידה'/>");
       var contact = $("<div class='contact'/>");
       var parent1 = $("<div class='parent  parent1'/>");
       var parent2 = $("<div class='parent  parent2'/>");
@@ -137,4 +169,5 @@ improve print layout
 small layout tweaks
 get all kids from vaad
 link to contact download
+search
 */

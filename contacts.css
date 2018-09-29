@@ -80,6 +80,12 @@ h1 {
     z-index: 2
 }
 
+#details{
+		height:100%;
+		display: flex;
+		flex-wrap: wrap;
+}
+
 #body.showDetails{
     padding-top: 328px;
 }
@@ -96,22 +102,24 @@ h1 {
 }
 
 .GoogleMap{
-	position:relative;
-	top:-33px;
-	right: 5px;
-	height: 230px;
-	max-width: 500px;
+	height: 100%;
 	min-width:150px;
+	flex-grow:1;
+	border: 1px solid;
 }
 
 .addressDetails{
 	display:none;
 }
 
+#detailsContainer .details{
+		height: 220px;
+}
+
 #detailsContainer .kidpic{
-    clip: rect(0px,200px,200px,0px);
-    width: 200px;
-    height: 200px;
+    clip: rect(0px,230px,230px,0px);
+    width: 230px;
+    height: 230px;
 }
 
 #detailsContainer .dob,
@@ -122,6 +130,10 @@ h1 {
     padding-right:36px;
 	height: 32px;
 	background-size:32px;
+}
+
+.parent2{
+	margin-top:15px;
 }
 
 .whatsapp{
@@ -151,13 +163,21 @@ h1 {
     opacity:1;
 }
 
+#details{
+	height:100%;
+}
+
 #details .info,
-#details .parent{
+#details .contact{
     display: inline-block;
     float: right;
-    background: rgba(255,255,255,0.4);
-    padding: 7px;
     margin-right: 5px;
+}
+
+#details .info,
+#details .parent{
+	background: rgba(255,255,255,0.4);
+	padding: 7px;
 }
 
 .email, 

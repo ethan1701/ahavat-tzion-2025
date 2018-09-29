@@ -1,13 +1,13 @@
-// jquery(function($) {
-    // // asynchronously load the map api 
-	// var apikey = "aizasydvls9ns9jb8rycf8hawzs5jylfdip2vdk";
-    // var script = document.createelement('script');
-    // script.src = "http://maps.googleapis.com/maps/api/js?key=" + apikey;
-    // document.body.appendchild(script);
+jquery(function($) {
+    // asynchronously load the map api 
+	var apikey = "aizasydvls9ns9jb8rycf8hawzs5jylfdip2vdk";
+    var script = document.createelement('script');
+    script.src = "http://maps.googleapis.com/maps/api/js?callback=drawMap&key=" + apikey;
+    document.body.appendchild(script);
 
-// });
+});
 
-function drawMap(markers) {
+function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}') {
 	markers = JSON.parse(markers);
 //	console.log(markers);
     var map;

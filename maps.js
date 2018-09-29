@@ -9,7 +9,7 @@ jquery(function($) {
 
 function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}') {
 	markers = JSON.parse(markers);
-//	console.log(markers);
+	console.log(markers);
     var map;
     var bounds = new google.maps.LatLngBounds();
     var mapOptions = {

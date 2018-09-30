@@ -1,13 +1,13 @@
 
 jQuery(function($) {
     // Asynchronously Load the map API 
-	var apiKey = "AIzaSyDVLs9Ns9jb8RyCf8haWZS5JYLfdiP2vDk";
+	var apiKey = "AIzaSyD5MmDTNsejfCHyHBdNRwFUFk8zkTdoyiA";
     var script = document.createElement('script');
-    script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize&key=" + apiKey;
+    script.src = "http://maps.googleapis.com/maps/api/js?callback=initialize&key=" + apiKey;
     document.body.appendChild(script);
 	
 	// use this to geocode an address. Manually paste the coordinates in the spreadsheet
-	var address = "ניסים אלוני 21, תל אביב";
+	var address = "כהנשטם 3, תל אביב";
 //	console.log($.get("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=" + apiKey));
 	$.getJSON("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=" + apiKey).done(function( data ) {
 		console.log(data.results[0].geometry.location);

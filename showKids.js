@@ -8,7 +8,7 @@
       return titles[col];
   }
   
-  function showDetails(kidDOM,kid){
+  function showDetails(kid){
       console.log(kid);
 	  history.pushState(null, null, '#details');
 	  
@@ -77,7 +77,7 @@
   function drawDetails(form, kid){
       console.log(kid);
       var container = $("<div class = 'kidContainer' />");
-      var div = $("<div class = 'kid' title='" + kid["Full Name"] + "'/>").click(function(){showDetails(this,kid)});
+      var div = $("<div class = 'kid' title='" + kid["Full Name"] + "'/>").click(function(){showDetails(kid)});
    // http://www.husky-owners.com/forum/uploads/monthly_2015_06/558fcc225abae_photo.thumb_jpgsz256.65bbc89b7dc3a7d0047f701989439647
       var imgURL = ("ImageID" in kid)  ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
       var img = $("<img src='"+ imgURL +"' class='kidpic' />");
@@ -169,5 +169,6 @@ improve print layout
 small layout tweaks
 get all kids from vaad
 link to contact download
+enable bookmark on mobile
 search
 */

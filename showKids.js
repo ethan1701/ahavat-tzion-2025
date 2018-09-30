@@ -53,7 +53,7 @@
 	  }
       $(".dynamic").addClass("showDetails");
       $("#details").scrollTop(0);
-	  drawMap(address);
+	  drawMap(kid["Address For Map"]);
   }
 
   function hideDetails(){

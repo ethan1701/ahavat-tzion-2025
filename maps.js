@@ -8,7 +8,7 @@
 
 // });
 
-function drawMap(markers) {
+function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}') {
 	markers = JSON.parse(markers);
 	console.log(markers);
 	

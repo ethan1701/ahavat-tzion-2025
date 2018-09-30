@@ -54,6 +54,24 @@
       $(".dynamic").addClass("showDetails");
       $("#details").scrollTop(0);
 	  drawMap(kid["Address For Map"]);
+	  
+	  // create a downloadable vcard
+	  var vcard = {
+                "version": "4.0",
+                "n": kid["Full Name"] + ";;",
+                "fn": kid["Full Name"],
+                "tel": [
+						{"value": kid["Parent 1 phone"], "type": kid["Parent1 Full Name"]},
+						{"value": kid["Parent 2 phone"], "type": kid["Parent2 Full Name"]}
+                ],
+                "email": [
+                    { "value": "john.smith@work.com", "type": "work" },
+                    { "value": "john.smith@home.com", "type": "home" }
+                ]
+            }
+	var vcardLink = vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
+	console.log(vcard);
+	info.append(vcardLink)
   }
 
   function hideDetails(){

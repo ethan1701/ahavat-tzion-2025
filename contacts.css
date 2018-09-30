@@ -415,7 +415,7 @@ h1 {
     
     .kidContainer .kid .contact{
         display: inline-block;
-        margin-top: 2%;
+        margin-top: 1%;
     }
     .kidpic{
         background: url(images/print-user.png) !important;
@@ -437,7 +437,7 @@ h1 {
     }
     
     .parent2{
-        margin-top: 5px;
+        margin-top: 3px;
     }
     .email{
         word-break: break-all;
@@ -452,5 +452,10 @@ h1 {
     }
 	#footer{
 		display: none;
+	}
+
+	*{
+	-webkit-print-color-adjust: exact !important;   /* Chrome, Safari */
+	color-adjust: exact !important;                 /*Firefox*/
 	}
 }

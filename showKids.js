@@ -62,7 +62,7 @@
                 "fn": kid["Full Name"],
                 "tel": [
 						{"value": kid["Parent 1 phone"], "type": "X-"+kid["Parent1 Full Name"]},
-						{"value": kid["Parent 2 phone"], "type": "X-"kid["Parent2 Full Name"]}
+						{"value": kid["Parent 2 phone"], "type": "X-"+kid["Parent2 Full Name"]}
                 ],
                 "email": [
                     { "value": "john.smith@work.com", "type": "work" },

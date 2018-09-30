@@ -90,6 +90,8 @@
         },
         export: function(card, name, force) {
             var a = document.createElement('a')
+			a.setAttribute("class","vcard");
+			a.setAttribute("title","כדי לשמור כאיש-קשר במכשיר הסלולרי");
             a.download = name + ".vcf"
             a.textContent = name
 

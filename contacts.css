@@ -126,7 +126,8 @@ h1 {
 #detailsContainer .dob,
 #detailsContainer .address,
 #detailsContainer .phone,
-#detailsContainer .email{
+#detailsContainer .email,
+#detailsContainer .vcard{
     margin-top: 5px;
     padding-right:36px;
 	height: 32px;
@@ -210,6 +211,12 @@ h1 {
 .address{
     background: url(images/address-icon.png) no-repeat right;
 	background-size: 24px;
+}
+
+.vcard{
+    background: url(images/contact-icon.png) no-repeat right;
+	background-size: 24px;
+	display: block;
 }
 
 #body{

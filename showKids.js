@@ -61,15 +61,15 @@
                 "n": kid["Last_Name"] + ";" + kid["First_Name"] + ";",
                 "fn": kid["Full Name"],
                 "tel": [
-						{"value": kid["Parent 1 phone"], "type": "cell"},
-						{"value": kid["Parent 2 phone"], "type": "cell"}
+						{"value": kid["Parent 1 phone"], "type": "X-"+kid["Parent1 Full Name"]},
+						{"value": kid["Parent 2 phone"], "type": "X-"kid["Parent2 Full Name"]}
                 ],
                 "email": [
                     { "value": "john.smith@work.com", "type": "work" },
                     { "value": "john.smith@home.com", "type": "home" }
                 ]
             }
-	var vcardLink = vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
+	var vcardLink = vCard.export(vcard, "כרטיס ביקור", false) // use parameter true to force download
 	console.log(vcard);
 	info.append(vcardLink)
   }

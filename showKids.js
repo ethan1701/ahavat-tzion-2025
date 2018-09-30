@@ -68,14 +68,19 @@
                 "fn": kid["Full Name"],
 				"org": "אהבת ציון; תשע\"ט; א' 3",
 				"bday": kid["DOB"],
+				"photo": [],
 				"adr":[],
                 "tel": [],
                 "email": []
             }
+			
+	// add the photo if it exists
+	if (imgURL !=""){
+		vcard.photo.push({"value":imgURL});
+	}
 	// a kid may have more than one address. Put them all in the vcard
 	var addresses = kid["Address"].split("\n");
 	for (var address in addresses){
-	console.log(addresses[address]);
 		vcard.adr.push({"value": addresses[address]+";;תל אביב;ישראל", "type":"home"});
 	}
 	
@@ -116,7 +121,7 @@
   }
 
   function drawDetails(form, kid){
-      console.log(kid);
+   //   console.log(kid);
       var container = $("<div class = 'kidContainer' />");
       var div = $("<div class = 'kid' title='" + kid["Full Name"] + "'/>").click(function(){showDetails(kid)});
    // http://www.husky-owners.com/forum/uploads/monthly_2015_06/558fcc225abae_photo.thumb_jpgsz256.65bbc89b7dc3a7d0047f701989439647
@@ -175,8 +180,8 @@
         }
       }
    
-      console.log(titles);
-      console.log(kids);
+   //   console.log(titles);
+   //   console.log(kids);
       
       for (i in kids){
        drawDetails(parent, kids[i]);

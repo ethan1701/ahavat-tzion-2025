@@ -34,6 +34,7 @@
             "NOTE": {"version": [version.TWO, version.THREE, version.FOUR], "key": "NOTE"},
             "ORGANIZATION": {"version": [version.TWO, version.THREE, version.FOUR], "key": "ORG"},
             // TODO: PHOTO
+			"PHOTO": {"version": [version.TWO, version.THREE, version.FOUR], "key": "PHOTO"},
             "PRODID": {"version": [version.THREE, version.FOUR], "key": "PRODID"},
             "PROFILE": {"version": [version.TWO, version.THREE], "key": "PROFILE"},
             "RELATED": {"version": [version.FOUR], "key": "RELATED"},
@@ -91,7 +92,7 @@
         export: function(card, name, force) {
             var a = document.createElement('a')
 			a.setAttribute("class","vcard");
-			a.setAttribute("title","כדי לשמור כאיש-קשר במכשיר הסלולרי");
+			a.setAttribute("title","לשמירה כאיש-קשר");
             a.download = name + ".vcf"
             a.textContent = "כרטיס ביקור"
 

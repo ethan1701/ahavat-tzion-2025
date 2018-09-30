@@ -93,7 +93,7 @@
 			a.setAttribute("class","vcard");
 			a.setAttribute("title","כדי לשמור כאיש-קשר במכשיר הסלולרי");
             a.download = name + ".vcf"
-            a.textContent = name
+            a.textContent = "כרטיס ביקור"
 
             if(Blob) {
                 var blob = new Blob([this.dump(card)], {"type": "text/vcard"})

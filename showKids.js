@@ -8,6 +8,12 @@
       return titles[col];
   }
   
+  function toHumanDate(date){
+	  var options = {year: 'numeric', month: '2-digit', day: '2-digit' };
+	  var locale = 'he-IL';
+	  return date.toLocaleDateString(locale, options);
+  }
+  
   function showDetails(kid){
       console.log(kid);
 	  history.pushState(null, null, '#details');
@@ -27,7 +33,7 @@
       info.append(address);	  
       name.append(kid["Full Name"]);
       address.append(kid["Address"].replace("\n","<br />"));
-      dob.append(kid["DOB"]);
+      dob.append(toHumanDate(new Date(kid["DOB"])));
 	  
       var contact = $("<div class='contact'/>");
       var parent1 = $("<div class='parent  parent1'/>");
@@ -60,16 +66,33 @@
                 "version": "3.0",
                 "n": kid["Last_Name"] + ";" + kid["First_Name"] + ";",
                 "fn": kid["Full Name"],
-                "tel": [
-						{"value": kid["Parent 1 phone"], "type": "X-"+kid["Parent1 Full Name"]},
-						{"value": kid["Parent 2 phone"], "type": "X-"+kid["Parent2 Full Name"]}
-                ],
-                "email": [
-                    { "value": "john.smith@work.com", "type": "work" },
-                    { "value": "john.smith@home.com", "type": "home" }
-                ]
+				"org": "אהבת ציון; תשע\"ט; א' 3",
+				"bday": kid["DOB"],
+				"adr":[],
+                "tel": [],
+                "email": []
             }
-	var vcardLink = vCard.export(vcard, "כרטיס ביקור", false) // use parameter true to force download
+	// a kid may have more than one address. Put them all in the vcard
+	var addresses = kid["Address"].split("\n");
+	for (var address in addresses){
+	console.log(addresses[address]);
+		vcard.adr.push({"value": addresses[address]+";;תל אביב;ישראל", "type":"home"});
+	}
+	
+	// add each phone and email that exists
+	if ("Parent 1 phone" in kid){
+		vcard.tel.push({"value": kid["Parent 1 phone"], "type": "X-"+kid["Parent1 Full Name"]});
+	}
+	if ("Parent 2 phone" in kid){
+		vcard.tel.push({"value": kid["Parent 2 phone"], "type": "X-"+kid["Parent2 Full Name"]});
+	}
+	if ("Parent 1 Email" in kid){
+		vcard.email.push({"value": kid["Parent 1 Email"], "type": "X-"+kid["Parent1 Full Name"]});
+	}
+	if ("Parent 2 Email" in kid){
+		vcard.email.push({"value": kid["Parent 2 Email"], "type": "X-"+kid["Parent2 Full Name"]});
+	}
+	var vcardLink = vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
 	console.log(vcard);
 	info.append(vcardLink)
   }
@@ -119,7 +142,7 @@
       name.append(kid["Full Name"]);
       address.append(kid["Address"].replace("\n","<br />"));
 	  addressDetails.append(kid["Address For Map"]);
-      dob.append(kid["DOB"]);
+      dob.append(toHumanDate(new Date(kid["DOB"])) );
       parent1.append(kid["Parent1 Full Name"]);
       parent1.append(getContactInfo(kid["Parent 1 phone"], "phone"));
       parent1.append(getContactInfo(kid["Parent 1 Email"], "email"));

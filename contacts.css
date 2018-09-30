@@ -427,9 +427,11 @@ h1 {
     .kidpic{
         background: url(images/print-user.png) !important;
     	background-size: 100% 100% !important;
-    	width: 1cm;
-    	height: 1cm;
-		float:left;
+    	width: 1.5cm;
+    	height: 1.5cm;
+		position: absolute;
+		left: 0px;
+		z-index: 1;
     }
 
     .dob, .address{

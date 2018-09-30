@@ -57,7 +57,8 @@
 	  
 	  // create a downloadable vcard
 	  var vcard = {
-                "version": "4.0",
+                "version": "3.0",
+                "n": kid["Last_Name"] + ";" + kid["First_Name"] + ";",
                 "fn": kid["Full Name"],
                 "tel": [
 						{"value": kid["Parent 1 phone"], "type": "cell"},

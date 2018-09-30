@@ -58,11 +58,10 @@
 	  // create a downloadable vcard
 	  var vcard = {
                 "version": "4.0",
-                "n": kid["Full Name"] + ";;",
                 "fn": kid["Full Name"],
                 "tel": [
-						{"value": kid["Parent 1 phone"], "type": kid["Parent1 Full Name"]},
-						{"value": kid["Parent 2 phone"], "type": kid["Parent2 Full Name"]}
+						{"value": kid["Parent 1 phone"], "type": "cell"},
+						{"value": kid["Parent 2 phone"], "type": "cell"}
                 ],
                 "email": [
                     { "value": "john.smith@work.com", "type": "work" },

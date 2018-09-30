@@ -76,7 +76,7 @@
 			
 	// add the photo if it exists
 	if (imgURL !=""){
-		vcard.photo.push({"value":imgURL});
+		vcard.photo.push({"type":"jpeg","value":"URI:"+imgURL});
 	}
 	// a kid may have more than one address. Put them all in the vcard
 	var addresses = kid["Address"].split("\n");

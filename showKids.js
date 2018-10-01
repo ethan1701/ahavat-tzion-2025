@@ -20,7 +20,7 @@
 	  
 	  details = $("<div class = 'kid' />");
       var imgURL = ("ImageID" in kid)  ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
-      var img = $("<img src='"+ imgURL +"' class='kidpic' />");
+      var img = $("<img src='"+ imgURL +"' class='kidpic'/>");
       details.append(img);
 
       var info = $("<span class='info'/>");
@@ -53,6 +53,7 @@
       }
 	  
       $("#details").empty().append(details);
+	  
 	  if (null != kid["Address For Map"]){
 		var googleMap = $("<div id = 'GoogleMap' class = 'GoogleMap'>");
 		$("#details").append(googleMap);
@@ -73,15 +74,11 @@
                 "tel": [],
                 "email": []
             }
-			
-	// add the photo if it exists
-	if (imgURL !=""){
-		vcard.photo.push({"type":"jpeg","value":"URI:"+imgURL});
-	}
+
 	// a kid may have more than one address. Put them all in the vcard
 	var addresses = kid["Address"].split("\n");
 	for (var address in addresses){
-		vcard.adr.push({"value": addresses[address]+";;תל אביב;ישראל", "type":"home"});
+		vcard.adr.push({"value": ";;"+ addresses[address]+";תל אביב;;ישראל", "type":"home"});
 	}
 	
 	// add each phone and email that exists

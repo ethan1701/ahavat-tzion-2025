@@ -19,8 +19,10 @@
 	  history.pushState(null, null, '#details');
 	  
 	  details = $("<div class = 'kid' />");
-      var imgURL = ("ImageID" in kid)  ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
-      var img = $("<img src='"+ imgURL +"' class='kidpic'/>");
+  //    var imgURL = ("ImageID" in kid)  ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
+      var imgURL = kid["Image Base64"] ;
+      
+	  var img = $("<img src='"+ imgURL +"' class='kidpic'/>");
       details.append(img);
 
       var info = $("<span class='info'/>");
@@ -64,12 +66,12 @@
 	  
 	  // create a downloadable vcard
 	  var vcard = {
-                "version": "3.0",
+                "version": "4.0",
                 "n": kid["Last_Name"] + ";" + kid["First_Name"] + ";",
                 "fn": kid["Full Name"],
 				"org": "אהבת ציון; תשע\"ט; א' 3",
 				"bday": kid["DOB"],
-				"photo": [],
+				"photo": kid["Image Base64"],
 				"adr":[],
                 "tel": [],
                 "email": []
@@ -208,10 +210,11 @@ todo:
 O 	use map API instead of embed
 O 	format field address for map, use that
 O	remove link to map from displayed address
-improve print layout
+O	improve print layout
 small layout tweaks
 get all kids from vaad
-link to contact download
+O	link to contact download
+add image to vcard. possibly store base64 in spreadsheet
 enable bookmark on mobile
 search
 */

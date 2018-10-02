@@ -87,6 +87,7 @@ function createVcard(kid, includePic) {
 		var kidPicAddress = kidPicBaseUrl + kid["Full Name"] + '.jpg';
 		getPicBase64(kidPicAddress, function(photo){
 			vcard.photo = photo;
+			console.log(photo);
 		})
 	}
 	

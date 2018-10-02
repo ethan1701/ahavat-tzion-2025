@@ -85,13 +85,13 @@ function createVcard(kid, includePic) {
 	// generate base64 for image, if needed
 	if (includePic) {
 		var kidPicAddress = kidPicBaseUrl + kid["Full Name"] + '.jpg';
-		console.log(kidPicAddress);
 		getPicBase64(kidPicAddress, function(photo){
 			vcard.photo = photo;
 		})
 	}
+	
+	console.log(vcard);	
 	return vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
-	console.log(vcard);
 }
 
 function showDetails(kid) {

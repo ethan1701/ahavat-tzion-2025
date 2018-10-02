@@ -19,9 +19,8 @@
 	  history.pushState(null, null, '#details');
 	  
 	  details = $("<div class = 'kid' />");
-  //    var imgURL = ("ImageID" in kid)  ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
-      var imgURL = kid["Image Base64"] ;
-      
+      var imgURL = ("ImageID" in kid)  ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
+//      var imgURL = kid["Image Base64"] ;
 	  var img = $("<img src='"+ imgURL +"' class='kidpic'/>");
       details.append(img);
 

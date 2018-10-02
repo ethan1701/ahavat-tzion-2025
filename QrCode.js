@@ -2290,7 +2290,10 @@ QrCode.prototype.createQr = function (options) {
  * @param vCard.anniversary {string} - Defines the person's anniversary.
  * @param vCard.email {array|string} - HOME The address for electronic mail communication with the vCard object.
  * @param vCard.workEmail {array|string} - WORK The address for electronic mail communication with the vCard object.
- * @param vCard.otherEmail {array|string} -OTHER The address for electronic mail communication with the vCard object.
+ * @param vCard.otherEmail {array|string} - OTHER The address for electronic mail communication with the vCard object.
+ * @param vCard.customEmail {array|object} - CUSTOM email address
+ * @param vCard.customEmail.type {string} - The type of electronic mail communication with the vCard object.
+ * @param vCard.customEmail.address {string} - The address for electronic mail communication with the vCard object.
  * @param vCard.logo {object} - An image or graphic of the logo of the organization that is associated with the individual to which the vCard belongs.
  * @param vCard.logo.url {string} - Url to img
  * @param vCard.logo.mediaType {string} - type
@@ -2306,6 +2309,9 @@ QrCode.prototype.createQr = function (options) {
  * @param vCard.homeFax {array|string} - Fax home
  * @param vCard.workFax {array|string} - Fax work
  * @param vCard.otherPhone {array|string} - Other phone
+ * @param vCard.customPhone {array|object} - custom phone
+ * @param vCard.customPhone.type {string} - custom phone type
+ * @param vCard.customPhone.number {string} - custom phone number
  *
  * @param vCard.homeAddress {object} - Home address
  * @param vCard.homeAddress.label {string} - Represents the actual text that should be put on the mailing label when delivering a physical package to the person/object associated with the vCard (related to the ADR property).
@@ -2445,6 +2451,23 @@ QrCode.prototype.createVCard = function (vCard) {
         );
     }
 
+    if (vCard.customEmail) {
+        if (!Array.isArray(vCard.customEmail)) {
+            vCard.customEmail = new Array(vCard.customEmail);
+        }
+        vCard.customEmail.forEach(
+            function (customEmail) {
+                if (majorVersion >= 4) {
+                    formattedVCardString += 'EMAIL' + encodingPrefix + ';type=X-' + e(customEmail.type) + ':' + e(customEmail.address) + nl();
+                } else if (majorVersion >= 3 && majorVersion < 4) {
+                    formattedVCardString += 'EMAIL' + encodingPrefix + ';type=X-' + e(customEmail.type) + ',INTERNET:' + e(customEmail.address) + nl();
+                } else {
+                    formattedVCardString += 'EMAIL' + encodingPrefix + ';X-' + e(customEmail.type) + ';INTERNET:' + e(customEmail.address) + nl();
+                }
+            }
+        );
+    }	
+	
     if (vCard.logo && vCard.logo.url) {
         formattedVCardString += getFormattedPhoto('LOGO', vCard.logo.url, vCard.logo.mediaType, vCard.logo.base64,majorVersion);
     }
@@ -2562,6 +2585,22 @@ QrCode.prototype.createVCard = function (vCard) {
         );
     }
 
+    if (vCard.customPhone) {
+        if (!Array.isArray(vCard.customPhone)) {
+            vCard.customPhone = new Array(vCard.customPhone);
+        }
+        vCard.customPhone.forEach(
+            function (customPhone) {
+                if (majorVersion >= 4) {
+                    formattedVCardString += 'TEL;VALUE=uri;TYPE="voice,X-' + e(customPhone.type) + ':tel:' + e(customPhone.number) + nl();
+
+                } else {
+                    formattedVCardString += 'TEL;TYPE=X-' + e(customPhone.type) + ':' + e(customPhone.number) + nl();
+                }
+            }
+        );
+    }	
+	
     [{
         details: vCard.homeAddress||{},
         type: 'HOME'

@@ -22,12 +22,12 @@ function toHumanDate(date) {
 function createVcard(kid, includePic) {
 	// create a downloadable vcard
 	
-	function getpicBase64(kidPicAddress, cb){
+	function getPicBase64(kidPicAddress, cb){
 		loadXHR(kidPicAddress).then(function(blob) {
 		var reader = new window.FileReader();
 		reader.readAsDataURL(blob);
 		reader.onloadend = function() {
-			console.log(reader.result);
+//			console.log(reader.result);
 			cb = 'PHOTO;ENCODING=b;TYPE=JPEG:' + reader.result;
 			// generate the file again
 //			var vcardLink = vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
@@ -85,7 +85,8 @@ function createVcard(kid, includePic) {
 	// generate base64 for image, if needed
 	if (includePic) {
 		var kidPicAddress = kidPicBaseUrl + kid["Full Name"] + '.jpg';
-		getpicBase64(kidPicAddress, function(photo){
+		console.log(kidPicAddress);
+		getPicBase64(kidPicAddress, function(photo){
 			vcard.photo = photo;
 		})
 	}

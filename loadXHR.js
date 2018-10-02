@@ -1,3 +1,4 @@
+// https://stackoverflow.com/questions/42471755/convert-image-into-blob-using-javascript
 function loadXHR(url) {
 
     return new Promise(function(resolve, reject) {

@@ -7,7 +7,9 @@
 <body>
 <script src="loadXHR.js" type="application/javascript"></script>
 <script>
-    loadXHR("https://ethan1701.github.io/Ahavat-Tzion-2019/images/DOB-icon.png");
+    loadXHR("https://ethan1701.github.io/Ahavat-Tzion-2019/images/DOB-icon.png").then(function(blob) {
+  console.log(blob);
+});
 </script>
 
 </body>

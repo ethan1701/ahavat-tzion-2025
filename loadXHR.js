@@ -15,8 +15,3 @@ function loadXHR(url) {
         catch(err) {reject(err.message)}
     });
 }
-
-
-loadXHR("url-to-image").then(function(blob) {
-  console.log(blob);
-});

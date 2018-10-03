@@ -168,11 +168,6 @@ h1 {
 #close:hover{
     opacity:1;
 }
-
-#details{
-	height:100%;
-}
-
 #details .info,
 #details .contact{
     display: inline-block;
@@ -307,6 +302,15 @@ h1 {
     #footer{
         height:60px;
     }
+	
+	#details{
+		display: inherit;
+	}
+	
+	.contact{
+		clear:both;
+	}
+	
     .kidContainer{
         min-width: 450px;
         width: 48%;
@@ -324,10 +328,21 @@ h1 {
     .kidContainer .fullName{
         font-size: 150%;
     }
+	
+	#detailsContainer .kid{
+		display: inline-block;
+		height: auto;
+		width:100%;
+		margin-bottom: 20px;
+
+	}
+	
+	
     #detailsContainer .kidpic{
         width: 300px;
         height: 300px;
         background-size: 200px;
+		float: left;
     }
     
     #detailsContainer .fullName{
@@ -346,7 +361,8 @@ h1 {
 	#detailsContainer .dob,
 	#detailsContainer .phone,
 	#detailsContainer .email,
-	#detailsContainer .whatsapp{
+	#detailsContainer .whatsapp,
+	#detailsContainer .vcard{
 			background-size:60px;
 			height:80px;
 			padding-right: 70px;
@@ -357,7 +373,6 @@ h1 {
        line-height: 260%;
        font-size: 200%;
        background: rgba(0,0,0,0.0);
-       clear: both;
     }
     
     #close{
@@ -396,6 +411,7 @@ h1 {
 		top: unset;
 		right: unset;
 		padding-top:40px;
+		background: gray;
 	}
 }
 

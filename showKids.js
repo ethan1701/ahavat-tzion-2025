@@ -176,7 +176,7 @@ function drawDetails(form, kid) {
 	var name = $("<div class = 'fullName'/>");
 	var info = $("<div class='info'/>");
 	var address = $("<div class='address' title='כתובת'/>");
-	var addressDetails = $("<div class='addressDetails'/>");
+//	var addressDetails = $("<div class='addressDetails'/>");
 	var dob = $("<div class='dob' title='תאריך לידה'/>");
 	var contact = $("<div class='contact'/>");
 	var parent1 = $("<div class='parent  parent1'/>");
@@ -188,11 +188,11 @@ function drawDetails(form, kid) {
 	div.append(info);
 	info.append(dob);
 	info.append(address);
-	info.append(addressDetails);
+//	info.append(addressDetails);
 	div.append(contact);
 	name.append(kid["Full Name"]);
 	address.append(kid["Address"].replace("\n", "<br />"));
-	addressDetails.append(kid["Address For Map"]);
+//	addressDetails.append(kid["Address For Map"]);
 	dob.append(toHumanDate(new Date(kid["DOB"])));
 	parent1.append(kid["Parent1 Full Name"]);
 	parent1.append(getContactInfo(kid["Parent 1 phone"], "phone"));
@@ -227,12 +227,37 @@ function readData(parent) {
 	}
 
 	//   console.log(titles);
-	//   console.log(kids);
+	   console.log(kids);
 
 	for (i in kids) {
 		drawDetails(parent, kids[i]);
 	}
 }
+
+function filterKids(){
+	var filterStr = $("#filter")[0].value.toUpperCase();
+	var kids = document.getElementsByClassName('kidContainer');	
+	for (var kid in kids){
+
+		var aKid = kids[kid];
+		// start by hiding all
+		aKid.classList.add('hidden');
+		
+		// remove any previously filtered values
+		if (filterStr==''){
+			aKid.classList.remove('hidden');
+		}
+		// get all descendant elements of the kid
+		var elementList = aKid.querySelectorAll('*').forEach(function(node) {
+			if (node.firstChild &&  node.firstChild.nodeType === Node.TEXT_NODE && node.innerHTML.toUpperCase().indexOf(filterStr) > -1){
+					console.log(node);
+					aKid.classList.remove('hidden');
+					node.classList.add('highlight');
+			}
+		});
+	}
+}
+
 $(document).ready(function() {
 	readData($("#data"));
 	if (window.history && window.history.pushState) {

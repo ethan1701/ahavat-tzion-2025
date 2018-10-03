@@ -72,6 +72,10 @@ h1 {
     background-repeat: no-repeat;
 }
 
+.hidden{
+	display:none;
+}
+
 #detailsContainer.showDetails{
     display: block;
     position: fixed;
@@ -180,6 +184,23 @@ h1 {
 #details .parent{
 	background: rgba(255,255,255,0.4);
 	padding: 7px;
+}
+
+#filter{
+	 background: url(images/search-icon.png) no-repeat left;
+ 	background-size: 24px;
+	position:absolute;
+	left: 20px;
+	width:200px;
+	height:32px;
+	padding-right:10px;
+	font-size: large;
+	color: gray;
+}
+
+.highlight{
+	background-color: rgba(255, 255, 0, 0.3) !important;
+
 }
 
 .email, 

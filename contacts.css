@@ -199,8 +199,11 @@ h1 {
 }
 
 .highlight{
-	background-color: rgba(255, 255, 0, 0.3) !important;
+	background-color: rgba(255, 255, 0, 0.3);
+}
 
+.kid{
+	 white-space: pre;
 }
 
 .email, 

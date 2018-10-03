@@ -144,6 +144,14 @@ function showDetails(kid) {
 
 	var vcardLink = createVcard(kid, true)
 	info.append(vcardLink)
+	
+	
+	//higlight relevant details
+	var filterStr = $("#filter")[0].value.toUpperCase();
+	if ( filterStr ) {
+		$('#detailsContainer').highlight( filterStr );
+	}
+
 }
 
 function hideDetails() {
@@ -254,7 +262,7 @@ function filterKids(){
 	}));
 	
 	// remove any old highlighted terms
-	$('#body').removeHighlight();
+	$('#body, #detailsContainer').removeHighlight();
 	// disable highlighting if empty
 	if ( filterStr ) {
 		// highlight the new term

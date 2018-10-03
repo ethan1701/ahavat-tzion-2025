@@ -236,25 +236,29 @@ function readData(parent) {
 
 function filterKids(){
 	var filterStr = $("#filter")[0].value.toUpperCase();
-	var kids = document.getElementsByClassName('kidContainer');	
-	for (var kid in kids){
-
-		var aKid = kids[kid];
+	var kids = document.getElementsByClassName('kidContainer');
+	[].forEach.call(kids, (function (kid){
 		// start by hiding all
-		aKid.classList.add('hidden');
-		
-		// remove any previously filtered values
-		if (filterStr==''){
-			aKid.classList.remove('hidden');
+		if(filterStr != ''){
+			kid.classList.add('hidden');
 		}
-		// get all descendant elements of the kid
-		var elementList = aKid.querySelectorAll('*').forEach(function(node) {
-			if (node.firstChild &&  node.firstChild.nodeType === Node.TEXT_NODE && node.innerHTML.toUpperCase().indexOf(filterStr) > -1){
-					console.log(node);
-					aKid.classList.remove('hidden');
-					node.classList.add('highlight');
+		
+		// if search is empty, show all
+		if(filterStr == ''){
+			kid.classList.remove('hidden');
+		}
+		
+		if (kid.innerText.toUpperCase().indexOf(filterStr) > -1){
+				kid.classList.remove('hidden');
 			}
-		});
+	}));
+	
+	// remove any old highlighted terms
+	$('#body').removeHighlight();
+	// disable highlighting if empty
+	if ( filterStr ) {
+		// highlight the new term
+		$('#body, #detailsContainer').highlight( filterStr );
 	}
 }
 

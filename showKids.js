@@ -16,7 +16,11 @@ function toHumanDate(date) {
 		day: '2-digit'
 	};
 	var locale = 'he-IL';
-	return date.toLocaleDateString(locale, options);
+	if(date instanceof Date && !isNaN(date.valueOf())){
+		return date.toLocaleDateString(locale, options);		
+	}else{
+		return null;
+	}
 }
 
 function createVcard(kid, includePic) {
@@ -39,12 +43,14 @@ function createVcard(kid, includePic) {
 		n: kid["Last_Name"] + ";" + kid["First_Name"] + ";",
 		fn: kid["Full Name"],
 		org: "אהבת ציון; תשע\"ט; א' 3",
-		bday: kid["DOB"],
 		adr: [],
 		tel: [],
 		email: []
 	}
 
+	if(toHumanDate(kid["DOB"])){
+		vcard.bday = kid["DOB"];
+	}
 	// a kid may have more than one address. Put them all in the vcard
 	var addresses = kid["Address"].split("\n");
 	for (var address in addresses) {
@@ -56,27 +62,43 @@ function createVcard(kid, includePic) {
 
 	// add each phone and email that exists
 	if ("Parent 1 phone" in kid) {
+		var typeVal = "CELL";
+		if(kid["Parent1 Full Name"].trim != ""){
+			typeVal = "X-" + kid["Parent1 Full Name"]
+		}
 		vcard.tel.push({
 			value: kid["Parent 1 phone"],
-			type: "X-" + kid["Parent1 Full Name"]
+			type: typeVal
 		});
 	}
 	if ("Parent 2 phone" in kid) {
+		var typeVal = "CELL";
+		if(kid["Parent2 Full Name"].trim != ""){
+			typeVal = "X-" + kid["Parent2 Full Name"]
+		}
 		vcard.tel.push({
 			value: kid["Parent 2 phone"],
-			type: "X-" + kid["Parent2 Full Name"]
+			type: typeVal
 		});
 	}
 	if ("Parent 1 Email" in kid) {
+		var typeval = "HOME";
+		if(kid["Parent1 Full Name"].trim != ""){
+			typeval = "X-" + kid["Parent1 Full Name"];
+		}
 		vcard.email.push({
 			value: kid["Parent 1 Email"],
-			type: "X-" + kid["Parent1 Full Name"]
+			type: typeval
 		});
 	}
 	if ("Parent 2 Email" in kid) {
+		var typeval = "HOME";
+		if(kid["Parent2 Full Name"].trim != ""){
+			typeval = "X-" + kid["Parent2 Full Name"];
+		}
 		vcard.email.push({
 			value: kid["Parent 2 Email"],
-			type: "X-" + kid["Parent2 Full Name"]
+			type: typeval
 		});
 	}
 
@@ -92,15 +114,15 @@ function createVcard(kid, includePic) {
 	console.log(vcard);	
 	return vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
 }
-
+// top details box
 function showDetails(kid) {
 	console.log(kid);
 	history.pushState(null, null, '#details');
 
 	details = $("<div class = 'kid' />");
-	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
-	//      var imgURL = kid["Image Base64"] ;
-	var img = $("<img src='" + imgURL + "' class='kidpic'/>");
+//	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
+	var imgURL = kidPicBaseUrl + kid["Full Name"]+ '.jpg'
+	var img = $("<img onerror='$(this).attr(\"src\",\"images/transparent.png\");' src='" + imgURL + "' class='kidpic'/>");
 	details.append(img);
 
 	var info = $("<span class='info'/>");
@@ -109,26 +131,53 @@ function showDetails(kid) {
 	var dob = $("<div class='dob' title='תאריך לידה'/>");
 	details.append(info);
 	info.append(name);
-	info.append(dob);
-	info.append(address);
-	name.append(kid["Full Name"]);
-	address.append(kid["Address"].replace("\n", "<br />"));
-	dob.append(toHumanDate(new Date(kid["DOB"])));
 
+	var dateString = toHumanDate(new Date(kid["DOB"]));
+	if(dateString){
+		dob.append(dateString);
+		info.append(dob);
+	}
+	
+	if(kid["Address"] != ""){
+		address.append(kid["Address"].replace("\n", "<br />"));
+		info.append(address);
+	}
+	
+	name.append(kid["Full Name"]);
+	
 	var contact = $("<div class='contact'/>");
 	var parent1 = $("<div class='parent  parent1'/>");
 	var parent2 = $("<div class='parent  parent2'/>");
 
 	details.append(contact);
 
-	parent1.append(kid["Parent1 Full Name"]);
-	parent1.append(getContactInfo(kid["Parent 1 phone"], "phone"));
-	parent1.append(getContactInfo(kid["Parent 1 Email"], "email"));
-	parent2.append(kid["Parent2 Full Name"]);
-	parent2.append(getContactInfo(kid["Parent 2 phone"], "phone"));
-	parent2.append(getContactInfo(kid["Parent 2 Email"], "email"));
+	if(kid["Parent1 Full Name"].trim() !=""){
+		parent1.append(kid["Parent1 Full Name"]);
+	}
+	if(kid["Parent 1 phone"] != ""){
+		parent1.append(getContactInfo(kid["Parent 1 phone"], "phone"));
+	}
+	if(kid["Parent 1 Email"] != ""){
+		parent1.append(getContactInfo(kid["Parent 1 Email"], "email"));
+	}
+	var thereAreTwoParents = false;
+	if(kid["Parent2 Full Name"].trim() !=""){
+		parent2.append(kid["Parent2 Full Name"]);
+		thereAreTwoParents = true;
+		console.log(kid["Parent2 Full Name"]);
+	}
+	if(kid["Parent 2 phone"] && kid["Parent 2 phone"].length > 0){
+		parent2.append(getContactInfo(kid["Parent 2 phone"], "phone"));
+		thereAreTwoParents = true;
+		console.log(kid["Parent 2 phone"]);
+	}
+	if(kid["Parent 2 Email"] && kid["Parent 2 Email"].length > 0){
+		parent2.append(getContactInfo(kid["Parent 2 Email"], "email"));
+		thereAreTwoParents = true;
+		console.log(kid["Parent 2 Email"]);
+	}
 	contact.append(parent1);
-	if ("Parent2 Full Name" in kid || "Parent 2 phone" in kid || "Parent 2 Email" in kid) {
+	if (thereAreTwoParents) {
 		contact.append(parent2);
 	}
 
@@ -145,7 +194,6 @@ function showDetails(kid) {
 	var vcardLink = createVcard(kid, true)
 	info.append(vcardLink)
 	
-	
 	//higlight relevant details
 	var filterStr = $("#filter")[0].value.toUpperCase();
 	if ( filterStr ) {
@@ -156,11 +204,6 @@ function showDetails(kid) {
 
 function hideDetails() {
 	$(".dynamic").removeClass("showDetails");
-}
-// deprecated
-function mapAddress(address) {
-	if (null == address) return null;
-	else return "<a href='https://m.google.co.il/maps/search/" + address + ", תל אביב' target='_blank' title='פתח מפה'>" + address + "</a>"
 }
 
 function getContactInfo(info, type) {
@@ -179,12 +222,12 @@ function drawDetails(form, kid) {
 		showDetails(kid)
 	});
 	// http://www.husky-owners.com/forum/uploads/monthly_2015_06/558fcc225abae_photo.thumb_jpgsz256.65bbc89b7dc3a7d0047f701989439647
-	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
-	var img = $("<img src='" + imgURL + "' class='kidpic' />");
+//	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
+	var imgURL = kidPicBaseUrl + kid["Full Name"]+ '.jpg'
+	var img = $("<img onerror='$(this).attr(\"src\",\"images/transparent.png\");' src='" + imgURL + "' class='kidpic' />");
 	var name = $("<div class = 'fullName'/>");
 	var info = $("<div class='info'/>");
 	var address = $("<div class='address' title='כתובת'/>");
-//	var addressDetails = $("<div class='addressDetails'/>");
 	var dob = $("<div class='dob' title='תאריך לידה'/>");
 	var contact = $("<div class='contact'/>");
 	var parent1 = $("<div class='parent  parent1'/>");
@@ -194,14 +237,20 @@ function drawDetails(form, kid) {
 	div.append(img);
 	div.append(name);
 	div.append(info);
-	info.append(dob);
-	info.append(address);
-//	info.append(addressDetails);
 	div.append(contact);
 	name.append(kid["Full Name"]);
-	address.append(kid["Address"].replace("\n", "<br />"));
-//	addressDetails.append(kid["Address For Map"]);
-	dob.append(toHumanDate(new Date(kid["DOB"])));
+	
+	
+	var dateString = toHumanDate(new Date(kid["DOB"]));
+	if(dateString){
+		dob.append(dateString);
+		info.append(dob);
+	}
+	
+	if(kid["Address"] != ""){
+		address.append(kid["Address"].replace("\n", "<br />"));
+		info.append(address);
+	}
 	parent1.append(kid["Parent1 Full Name"]);
 	parent1.append(getContactInfo(kid["Parent 1 phone"], "phone"));
 	parent1.append(getContactInfo(kid["Parent 1 Email"], "email"));
@@ -295,10 +344,10 @@ O 	use map API instead of embed
 O 	format field address for map, use that
 O	remove link to map from displayed address
 O	improve print layout
-small layout tweaks
-get all kids from vaad
+O	small layout tweaks
+O	get all kids from vaad
 O	link to contact download
 add image to vcard. possibly store base64 in spreadsheet
 enable bookmark on mobile
-search
+O	search
 */

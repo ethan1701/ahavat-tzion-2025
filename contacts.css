@@ -111,6 +111,7 @@ h1 {
 	flex-grow:1;
 //	border: 1px solid;
 	margin: 0px 5px 0px 15px;
+	background:light-gray;
 }
 
 .addressDetails{
@@ -125,6 +126,7 @@ h1 {
     clip: rect(0px,230px,230px,0px);
     width: 230px;
     height: 230px;
+	background-size:230px;
 }
 
 #detailsContainer .dob,
@@ -250,7 +252,7 @@ h1 {
     position: relative;
     margin: 2px;
     padding: 5px;
-    width: 300px;
+    width: 280px;
     height: 100px;
     border: 1px solid;
     float: right;
@@ -429,6 +431,7 @@ h1 {
     h1{
         border: inherit;
         padding: 0%;
+		font-size: initial;
     }
     
     #detailsContainer{
@@ -451,8 +454,8 @@ h1 {
     }
     .kidContainer{
         page-break-inside: avoid;
-        width: 4.9cm;
-        height: 2.68cm;
+        width: 4.3cm;
+        height: 2.8cm;
     	font-size: 64%;
     	line-height: 100%;
     	margin: 1px;
@@ -470,7 +473,7 @@ h1 {
     	width: 1.5cm;
     	height: 1.5cm;
 		position: absolute;
-		left: 0px;
+		left: 1px;
 		z-index: 1;
     }
 
@@ -499,7 +502,7 @@ h1 {
     a{
         text-decoration: inherit;
     }
-	#footer{
+	#filter, #footer{
 		display: none;
 	}
 

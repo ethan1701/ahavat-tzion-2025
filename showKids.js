@@ -28,9 +28,7 @@ function createVcard(kid, includePic) {
 		reader.readAsDataURL(blob);
 		reader.onloadend = function() {
 //			console.log(reader.result);
-			cb = 'PHOTO;ENCODING=b;TYPE=JPEG:' + reader.result;
-			// generate the file again
-//			var vcardLink = vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
+			cb ('PHOTO;ENCODING=b;TYPE=JPEG:' + reader.result);
 			}
 		})
 		

@@ -180,13 +180,13 @@ function showDetails(kid) {
 
 	$("#details").empty().append(details);
 
-	if (null != kid["Address For Map"]) {
+	if (kid["Address"] != "") {
 		var googleMap = $("<div id = 'GoogleMap' class = 'GoogleMap'>");
 		$("#details").append(googleMap);
+		drawMap(kid["Address For Map"]);
 	}
 	$(".dynamic").addClass("showDetails");
 	$("#details").scrollTop(0);
-	drawMap(kid["Address For Map"]);
 
 	var vcardLink = createVcard(kid, true)
 	info.append(vcardLink)
@@ -347,4 +347,6 @@ O	link to contact download
 add image to vcard. possibly store base64 in spreadsheet
 enable bookmark on mobile
 O	search
+links on bottom. Do we need them?
+all on one map
 */

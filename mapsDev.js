@@ -1,4 +1,7 @@
-
+var address = "משה שרת 61";
+address += ", תל אביב"
+var myLocation;
+	
 jQuery(function($) {
     // Asynchronously Load the map API 
 	var apiKey = "AIzaSyD5MmDTNsejfCHyHBdNRwFUFk8zkTdoyiA";
@@ -7,10 +10,11 @@ jQuery(function($) {
     document.body.appendChild(script);
 	
 	// use this to geocode an address. Manually paste the coordinates in the spreadsheet
-	var address = "כהנשטם 3, תל אביב";
+
 //	console.log($.get("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=" + apiKey));
 	$.getJSON("https://maps.googleapis.com/maps/api/geocode/json?address="+address+"&key=" + apiKey).done(function( data ) {
-		console.log(data.results[0].geometry.location);
+		myLocation = data.results[0].geometry.location;
+		console.log(myLocation);
 	});
 
 //	latlng = JSON.parse(latlng.toString());
@@ -30,8 +34,7 @@ function initialize() {
         
     // Multiple Markers
     var markers = [
-        ['London Eye, London', 51.503454,-0.119562],
-        ['Palace of Westminster, London', 51.499633,-0.124755]
+        [address, myLocation.Lat,myLocation.Lng]
     ];
                         
     // Info Window Content

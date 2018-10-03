@@ -63,7 +63,7 @@ function createVcard(kid, includePic) {
 	// add each phone and email that exists
 	if ("Parent 1 phone" in kid) {
 		var typeVal = "CELL";
-		if(kid["Parent1 Full Name"].trim != ""){
+		if(kid["Parent1 Full Name"].trim() != ""){
 			typeVal = "X-" + kid["Parent1 Full Name"]
 		}
 		vcard.tel.push({
@@ -73,7 +73,7 @@ function createVcard(kid, includePic) {
 	}
 	if ("Parent 2 phone" in kid) {
 		var typeVal = "CELL";
-		if(kid["Parent2 Full Name"].trim != ""){
+		if(kid["Parent2 Full Name"].trim() != ""){
 			typeVal = "X-" + kid["Parent2 Full Name"]
 		}
 		vcard.tel.push({
@@ -83,7 +83,7 @@ function createVcard(kid, includePic) {
 	}
 	if ("Parent 1 Email" in kid) {
 		var typeval = "HOME";
-		if(kid["Parent1 Full Name"].trim != ""){
+		if(kid["Parent1 Full Name"].trim() != ""){
 			typeval = "X-" + kid["Parent1 Full Name"];
 		}
 		vcard.email.push({
@@ -93,7 +93,7 @@ function createVcard(kid, includePic) {
 	}
 	if ("Parent 2 Email" in kid) {
 		var typeval = "HOME";
-		if(kid["Parent2 Full Name"].trim != ""){
+		if(kid["Parent2 Full Name"].trim ()!= ""){
 			typeval = "X-" + kid["Parent2 Full Name"];
 		}
 		vcard.email.push({
@@ -164,17 +164,14 @@ function showDetails(kid) {
 	if(kid["Parent2 Full Name"].trim() !=""){
 		parent2.append(kid["Parent2 Full Name"]);
 		thereAreTwoParents = true;
-		console.log(kid["Parent2 Full Name"]);
 	}
 	if(kid["Parent 2 phone"] && kid["Parent 2 phone"].length > 0){
 		parent2.append(getContactInfo(kid["Parent 2 phone"], "phone"));
 		thereAreTwoParents = true;
-		console.log(kid["Parent 2 phone"]);
 	}
 	if(kid["Parent 2 Email"] && kid["Parent 2 Email"].length > 0){
 		parent2.append(getContactInfo(kid["Parent 2 Email"], "email"));
 		thereAreTwoParents = true;
-		console.log(kid["Parent 2 Email"]);
 	}
 	contact.append(parent1);
 	if (thereAreTwoParents) {

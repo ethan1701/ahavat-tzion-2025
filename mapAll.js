@@ -218,6 +218,7 @@ function loadMap(){
 		for (var j in kidAddresses){
 			console.log(kidAddresses[j]);
 			if(kidAddresses[j].lat !=""){
+				console.log(kidAddresses[j].lat);
 				var address = kidAddresses[j];
 				address.details = kid["Full Name"];
 				allAddresses.addresses.push(address);
@@ -251,10 +252,6 @@ function readData(parent) {
 
 	//   console.log(titles);
 	   console.log(kids);
-
-	for (i in kids) {
-		drawDetails(parent, kids[i]);
-	}
 }
 
 function filterKids(){

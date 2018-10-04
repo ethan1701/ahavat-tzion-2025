@@ -285,13 +285,6 @@ function filterKids(){
 
 $(document).ready(function() {
 	readData($("#data"));
-	if (window.history && window.history.pushState) {
-		window.history.pushState('forward', null, './#forward');
-		$(window).on('popstate', function() {
-			hideDetails();
-		});
-
-	}
 });
 
 $.preloadImages = function() {

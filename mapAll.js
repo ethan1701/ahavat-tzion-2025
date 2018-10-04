@@ -217,9 +217,11 @@ function loadMap(){
 		console.log(kidAddresses);
 		for (var j in kidAddresses){
 			console.log(kidAddresses[j]);
-			var address = kidAddresses[j];
-			address.details = kid["Full Name"];
-			allAddresses.addresses.push(address);
+			if(kidAddresses[j].lat !=""){
+				var address = kidAddresses[j];
+				address.details = kid["Full Name"];
+				allAddresses.addresses.push(address);
+			}
 		}
 	}
 	console.log(allAddresses);

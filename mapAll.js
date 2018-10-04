@@ -220,6 +220,7 @@ function loadMap(){
 			if(kidAddresses[j].lat !=""){
 				console.log(kidAddresses[j].lat);
 				var address = kidAddresses[j];
+				address.title = kid["Full Name"];
 				address.details = kid["Full Name"];
 				allAddresses.addresses.push(address);
 			}

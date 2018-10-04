@@ -34,6 +34,14 @@ function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}'
             map: map,
             title: markers.addresses[i].title
         });
+
+        // Allow each marker to have an info window    
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+                infoWindow.setContent(infoWindowContent[i][0]);
+                infoWindow.open(map, marker);
+            }
+        })(marker, i));
         
         // Automatically center the map fitting all markers on the screen
         map.fitBounds(bounds);

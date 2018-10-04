@@ -46,7 +46,7 @@ h1 {
     width:100%;
     height: 50px;
     position: relative;
-	margin-top: -36px; /* negative value of footer height */
+	margin-top: -51px; /* negative value of footer height */
 	clear:both;
 }
 #footer a{
@@ -242,8 +242,7 @@ h1 {
 
 #body{
     padding-top: 72px;
-    padding-bottom: 36px;
-    margin-bottom: 20px;
+    padding-bottom: 55px;
     position: relative;
     overflow:auto;
 }

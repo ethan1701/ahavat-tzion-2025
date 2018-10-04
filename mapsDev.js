@@ -1,4 +1,4 @@
-var address = "משה שרת 61";
+﻿var address = "ז’בוטינסקי 149/1";
 address += ", תל אביב"
 var myLocation;
 	

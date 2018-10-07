@@ -120,7 +120,6 @@ function createVcard(kid, includePic) {
 // top details box
 function showDetails(kid) {
 	console.log(kid);
-	history.pushState(null, null, '#details');
 
 	details = $("<div class = 'kid' />");
 //	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
@@ -181,16 +180,6 @@ function showDetails(kid) {
 		contact.append(parent2);
 	}
 
-	$("#details").empty().append(details);
-
-	if (kid["Address"] != "") {
-		var googleMap = $("<div id = 'GoogleMap' class = 'GoogleMap'>");
-		$("#details").append(googleMap);
-		drawMap(kid["Address For Map"]);
-	}
-	$(".dynamic").addClass("showDetails");
-	$("#details").scrollTop(0);
-
 	var vcardLink = createVcard(kid, true)
 	info.append(vcardLink)
 	
@@ -199,11 +188,17 @@ function showDetails(kid) {
 	if ( filterStr ) {
 		$('#detailsContainer').highlight( filterStr );
 	}
-
+	return details;
 }
 
-function hideDetails() {
-	$(".dynamic").removeClass("showDetails");
+
+function getContactInfo(info, type) {
+	if (null == info) return null;
+	if (type == "phone") {
+		return ("<div class= '" + type + "'><a href='tel:" + info + "' title='חייג' target='_blank'>" + info + "</a><a href='https://api.whatsapp.com/send?phone=972" + info + "' title='שלח הודעת WhatsApp' target='_blank' class='whatsapp'></a></div>");
+	} else if (type == "email") {
+		return ("<a href='mailto:" + info + "' class='" + type + "' target='_blank' title='שלח מייל'>" + info + "</a>");
+	} else return null;
 }
 
 function loadMap(){
@@ -218,16 +213,17 @@ function loadMap(){
 		for (var j in kidAddresses){
 			console.log(kidAddresses[j]);
 			if(kidAddresses[j].lat !=""){
-				console.log(kidAddresses[j].lat);
 				var address = kidAddresses[j];
 				address.title = kid["Full Name"];
 				address.details = kid["Full Name"];
 				address.marker = markerURL;
 				address.infoWindow = showDetails(kid);
+//				console.log(address.infoWindow);
 				allAddresses.addresses.push(address);
 			}
 		}
 	}
+	console.log(allAddresses.addresses);
 	console.log(allAddresses);
 	
 	drawMap(allAddresses);
@@ -254,7 +250,7 @@ function readData(parent) {
 	}
 
 	//   console.log(titles);
-	   console.log(kids);
+	//   console.log(kids);
 }
 
 function filterKids(){

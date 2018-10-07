@@ -122,7 +122,6 @@ function showDetails(kid) {
 	console.log(kid);
 
 	details = $("<div class = 'kid' />");
-//	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
 	var imgURL = kidPicBaseUrl + kid["Full Name"]+ '.jpg'
 	var img = $("<img onerror='$(this).attr(\"src\",\"images/transparent.png\");' src='" + imgURL + "' class='kidpic'/>");
 	details.append(img);
@@ -188,7 +187,10 @@ function showDetails(kid) {
 	if ( filterStr ) {
 		$('#detailsContainer').highlight( filterStr );
 	}
-	return details;
+	
+	var detailsParent = $("<div class = 'parent' />");
+	detailsParent.append(details);
+	return detailsParent.html();
 }
 
 
@@ -218,7 +220,7 @@ function loadMap(){
 				address.details = kid["Full Name"];
 				address.marker = markerURL;
 				address.infoWindow = showDetails(kid);
-//				console.log(address.infoWindow);
+				console.log(address.infoWindow);
 				allAddresses.addresses.push(address);
 			}
 		}
@@ -285,14 +287,6 @@ $(document).ready(function() {
 	readData($("#data"));
 });
 
-$.preloadImages = function() {
-	for (var i = 0; i < arguments.length; i++) {
-		$("<img />").attr("src", arguments[i]);
-	}
-}
-
-$.preloadImages("images/print-user.png", "images/email-Icon.png", "images/phone-icon.png");
-
 /*
 todo:
 O 	use map API instead of embed
@@ -305,6 +299,6 @@ O	link to contact download
 add image to vcard. possibly store base64 in spreadsheet
 enable bookmark on mobile
 O	search
-links on bottom. Do we need them?
+O	links on bottom. Do we need them?
 all on one map
 */

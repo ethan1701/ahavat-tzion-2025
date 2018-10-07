@@ -44,7 +44,7 @@ function drawMap(markers) {
         // Allow each marker to have an info window    
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             return function() {
-                infoWindow.setContent(infoWindowContent[i][0]);
+                infoWindow.setContent(markers.addresses[i].infoWindow);
                 infoWindow.open(map, marker);
             }
         })(marker, i));

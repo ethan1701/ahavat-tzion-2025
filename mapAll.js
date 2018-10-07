@@ -223,6 +223,7 @@ function loadMap(){
 				address.title = kid["Full Name"];
 				address.details = kid["Full Name"];
 				address.marker = markerURL;
+				address.infoWindow = showDetails(kid);
 				allAddresses.addresses.push(address);
 			}
 		}

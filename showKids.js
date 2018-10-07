@@ -195,6 +195,8 @@ function showDetails(kid) {
 	var filterStr = $("#filter")[0].value.toUpperCase();
 	if ( filterStr ) {
 		$('#detailsContainer').highlight( filterStr );
+		
+	return details;
 	}
 
 }

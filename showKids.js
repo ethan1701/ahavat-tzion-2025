@@ -104,7 +104,7 @@ function createVcard(kid, includePic) {
 
 	// generate base64 for image, if needed
 	if (includePic) {
-		var kidPicAddress = kidPicBaseUrl + kid["Full Name"] + '.jpg';
+		var kidPicAddress = kidPicBaseUrl + kid["photoName"] + '.jpg';
 		getPicBase64(kidPicAddress, function(photo){
 			vcard.photo = 'photo';
 //			console.log(photo);
@@ -121,7 +121,7 @@ function showDetails(kid) {
 
 	details = $("<div class = 'kid' />");
 //	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
-	var imgURL = kidPicBaseUrl + kid["Full Name"]+ '.jpg'
+	var imgURL = kidPicBaseUrl + kid["photoName"]+ '.jpg'
 	var img = $("<img onerror='$(this).attr(\"src\",\"images/transparent.png\");' src='" + imgURL + "' class='kidpic'/>");
 	details.append(img);
 
@@ -220,7 +220,7 @@ function drawDetails(form, kid) {
 	});
 	// http://www.husky-owners.com/forum/uploads/monthly_2015_06/558fcc225abae_photo.thumb_jpgsz256.65bbc89b7dc3a7d0047f701989439647
 //	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
-	var imgURL = kidPicBaseUrl + kid["Full Name"]+ '.jpg'
+	var imgURL = kidPicBaseUrl + kid["photoName"]+ '.jpg'
 	var img = $("<img onerror='$(this).attr(\"src\",\"images/transparent.png\");' src='" + imgURL + "' class='kidpic' />");
 	var name = $("<div class = 'fullName'/>");
 	var info = $("<div class='info'/>");

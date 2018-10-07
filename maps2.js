@@ -29,9 +29,9 @@ function drawMap(markers) {
 		var position = new google.maps.LatLng(markers.addresses[i].lat, markers.addresses[i].long);
 		var image = {
 			url: markers.addresses[i].marker,
-			scaledSize: new google.maps.Size(30, 52),
+			scaledSize: new google.maps.Size(40, 70),
 			origin: new google.maps.Point(0, 0),
-			anchor: new google.maps.Point(15, 52)
+			anchor: new google.maps.Point(20, 70)
 		};
         bounds.extend(position);
         marker = new google.maps.Marker({

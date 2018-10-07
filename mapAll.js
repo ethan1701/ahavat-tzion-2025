@@ -121,7 +121,7 @@ function createVcard(kid, includePic) {
 function showDetails(kid) {
 	console.log(kid);
 
-	details = $("<div class = 'kid' />");
+	details = $("<div class = 'MapInfoWindow' />");
 	var imgURL = kidPicBaseUrl + kid["Full Name"]+ '.jpg'
 	var img = $("<img onerror='$(this).attr(\"src\",\"images/transparent.png\");' src='" + imgURL + "' class='kidpic'/>");
 	details.append(img);

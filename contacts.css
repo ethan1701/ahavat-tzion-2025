@@ -290,6 +290,30 @@ h1 {
     text-decoration: underline;
 }
 
+.MapInfoWindow .dob,
+.MapInfoWindow .address,
+.MapInfoWindow .phone,
+.MapInfoWindow .email,
+.MapInfoWindow .vcard{
+    margin-top: 5px;
+    padding-right:36px;
+	height: 32px;
+	background-size:32px;
+}
+
+.MapInfoWindow .info,
+.MapInfoWindow .contact{
+    display: inline-block;
+    float: right;
+    margin-right: 5px;
+}
+
+.MapInfoWindow .info,
+.MapInfoWindow .parent{
+	background: rgba(255,255,255,0.4);
+	padding: 7px;
+}
+
 @media screen and (max-width:1080px){
     body{
         font-size: x-large;

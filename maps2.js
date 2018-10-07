@@ -28,10 +28,16 @@ function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}'
     // Loop through our array of markers & place each one on the map  
     for( i = 0; i < markers.addresses.length; i++ ) {
 		var position = new google.maps.LatLng(markers.addresses[i].lat, markers.addresses[i].long);
+		var image = {markers.addresses[i].marker,
+			size: new google.maps.Size(20, 32),
+			origin: new google.maps.Point(0, 0),
+			anchor: new google.maps.Point(10, 32)
+		}
         bounds.extend(position);
         marker = new google.maps.Marker({
             position: position,
             map: map,
+			icon: image,
             title: markers.addresses[i].title
         });
 

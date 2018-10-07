@@ -206,7 +206,6 @@ function hideDetails() {
 	$(".dynamic").removeClass("showDetails");
 }
 
-
 function loadMap(){
 	var allAddresses = {
 		addresses:[]
@@ -214,6 +213,7 @@ function loadMap(){
 	for (var i in kids){
 		var kid = kids[i];
 		var kidAddresses = JSON.parse(kid["Address For Map"]).addresses;
+		var markerURL = kidPicBaseUrl + "/markers/" + kid["photoName"]+ '.png'
 		console.log(kidAddresses);
 		for (var j in kidAddresses){
 			console.log(kidAddresses[j]);
@@ -222,6 +222,7 @@ function loadMap(){
 				var address = kidAddresses[j];
 				address.title = kid["Full Name"];
 				address.details = kid["Full Name"];
+				address.marker = markerURL;
 				allAddresses.addresses.push(address);
 			}
 		}

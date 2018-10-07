@@ -32,7 +32,7 @@ function drawMap(markers) {
 			size: new google.maps.Size(20, 32),
 			origin: new google.maps.Point(0, 0),
 			anchor: new google.maps.Point(10, 32)
-		}
+		};
         bounds.extend(position);
         marker = new google.maps.Marker({
             position: position,

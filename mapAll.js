@@ -213,7 +213,7 @@ function loadMap(){
 	for (var i in kids){
 		var kid = kids[i];
 		var kidAddresses = JSON.parse(kid["Address For Map"]).addresses;
-		var markerURL = kidPicBaseUrl + "/markers/" + kid["photoName"]+ '.png'
+		var markerURL = kidPicBaseUrl + "markers/" + kid["photoName"]+ '.png'
 		console.log(kidAddresses);
 		for (var j in kidAddresses){
 			console.log(kidAddresses[j]);

@@ -8,7 +8,7 @@
 
 // });
 
-function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}') {
+function drawMap(markers) {
 //	markers = JSON.parse(markers);
 //	console.log(markers);
 	
@@ -17,18 +17,18 @@ function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}'
     var mapOptions = {
         mapTypeId: 'roadmap'
     };
-                    
+
     // Display a map on the page
     map = new google.maps.Map(document.getElementById("GoogleMap"), mapOptions);
-    map.setTilt(45);
-                         
+
     // Display multiple markers on a map
     var infoWindow = new google.maps.InfoWindow(), marker, i;
     
     // Loop through our array of markers & place each one on the map  
     for( i = 0; i < markers.addresses.length; i++ ) {
 		var position = new google.maps.LatLng(markers.addresses[i].lat, markers.addresses[i].long);
-		var image = {markers.addresses[i].marker,
+		var image = {
+			url: markers.addresses[i].marker,
 			size: new google.maps.Size(20, 32),
 			origin: new google.maps.Point(0, 0),
 			anchor: new google.maps.Point(10, 32)

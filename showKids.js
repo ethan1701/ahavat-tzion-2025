@@ -267,8 +267,9 @@ function drawDetails(form, kid) {
 		contact.append(parent2);
 	}
 	var vcardLink = createVcard(kid, true)
-	var qrStr = 'https://chart.googleapis.com/chart?chs=100x100&cht=qr&choe=UTF-8&chld=L|0&chl='+encodeURI(vcardLink.string).replace("'","%27");
-//	div.append("<img src='" + qrStr + "' class='QR''/>");
+	console.log(vcardLink.string);
+	var qrStr = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&choe=UTF-8&chld=L|0&chl='+encodeURI(vcardLink.string).replace(/'/g,"%27");
+	div.append("<img src='" + qrStr + "' class='QR''/>");
 
 }
 

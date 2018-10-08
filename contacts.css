@@ -290,6 +290,10 @@ h1 {
     text-decoration: underline;
 }
 
+.QR{
+	display:none;
+}
+
 .MapInfoWindow .dob,
 .MapInfoWindow .address,
 .MapInfoWindow .phone,
@@ -516,6 +520,7 @@ h1 {
     }
     .email{
         word-break: break-all;
+		font-size:0.8em;
     }
 
 	.whatsapp{
@@ -532,5 +537,14 @@ h1 {
 	*{
 	-webkit-print-color-adjust: exact !important;   /* Chrome, Safari */
 	color-adjust: exact !important;                 /*Firefox*/
+	}
+
+	.QR{
+		display:inherit;
+		border: 1px solid white;
+		width: 1.5cm;
+		position: absolute;
+		left:0px;
+		bottom:0px;
 	}
 }

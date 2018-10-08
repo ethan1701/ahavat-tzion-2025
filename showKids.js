@@ -42,7 +42,7 @@ function createVcard(kid, includePic) {
 		version: "3.0",
 		n: kid["Last_Name"] + ";" + kid["First_Name"] + ";",
 		fn: kid["Full Name"],
-		org: "אהבת ציון; תשע\"ט; א' 3",
+		org: "אהבת ציון;תשע\"ט;א' 3",
 		adr: [],
 		tel: [],
 		email: []
@@ -64,7 +64,7 @@ function createVcard(kid, includePic) {
 	if ("Parent 1 phone" in kid) {
 		var typeVal = "CELL";
 		if(kid["Parent1 Full Name"].trim() != ""){
-			typeVal = "X-" + kid["Parent1 Full Name"]
+			typeVal += ",X-" + kid["Parent1 Full Name"]
 		}
 		vcard.tel.push({
 			value: kid["Parent 1 phone"],
@@ -74,7 +74,7 @@ function createVcard(kid, includePic) {
 	if ("Parent 2 phone" in kid) {
 		var typeVal = "CELL";
 		if(kid["Parent2 Full Name"].trim() != ""){
-			typeVal = "X-" + kid["Parent2 Full Name"]
+			typeVal += ",X-" + kid["Parent2 Full Name"]
 		}
 		vcard.tel.push({
 			value: kid["Parent 2 phone"],
@@ -84,7 +84,7 @@ function createVcard(kid, includePic) {
 	if ("Parent 1 Email" in kid) {
 		var typeval = "HOME";
 		if(kid["Parent1 Full Name"].trim() != ""){
-			typeval = "X-" + kid["Parent1 Full Name"];
+			typeval += ",X-" + kid["Parent1 Full Name"];
 		}
 		vcard.email.push({
 			value: kid["Parent 1 Email"],
@@ -94,7 +94,7 @@ function createVcard(kid, includePic) {
 	if ("Parent 2 Email" in kid) {
 		var typeval = "HOME";
 		if(kid["Parent2 Full Name"].trim ()!= ""){
-			typeval = "X-" + kid["Parent2 Full Name"];
+			typeval += ",X-" + kid["Parent2 Full Name"];
 		}
 		vcard.email.push({
 			value: kid["Parent 2 Email"],
@@ -111,8 +111,13 @@ function createVcard(kid, includePic) {
 		})
 	}
 	
-	console.log(vcard);	
-	return vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
+	var vcardBack = {};
+	vcardBack.string = vCard.dump(vcard);
+	vcardBack.file = vCard.export(vcard, kid["Full Name"], false);
+	
+//	console.log(vcardBack);
+//	return vCard.export(vcard, kid["Full Name"], false) // use parameter true to force download
+	return vcardBack;
 }
 // top details box
 function showDetails(kid) {
@@ -189,7 +194,7 @@ function showDetails(kid) {
 	$("#details").scrollTop(0);
 
 	var vcardLink = createVcard(kid, true)
-	info.append(vcardLink)
+	info.append(vcardLink.file);
 	
 	//higlight relevant details
 	var filterStr = $("#filter")[0].value.toUpperCase();
@@ -208,7 +213,8 @@ function hideDetails() {
 function getContactInfo(info, type) {
 	if (null == info) return null;
 	if (type == "phone") {
-		return ("<div class= '" + type + "'><a href='tel:" + info + "' title='חייג' target='_blank'>" + info + "</a><a href='https://api.whatsapp.com/send?phone=972" + info + "' title='שלח הודעת WhatsApp' target='_blank' class='whatsapp'></a></div>");
+		var stripped = info.replace(/-/g,"");
+		return ("<div class= '" + type + "'><a href='tel:" + stripped + "' title='חייג' target='_blank'>" + info + "</a><a href='https://api.whatsapp.com/send?phone=972" + stripped + "' title='שלח הודעת WhatsApp' target='_blank' class='whatsapp'></a></div>");
 	} else if (type == "email") {
 		return ("<a href='mailto:" + info + "' class='" + type + "' target='_blank' title='שלח מייל'>" + info + "</a>");
 	} else return null;
@@ -260,6 +266,10 @@ function drawDetails(form, kid) {
 	if ("Parent2 Full Name" in kid || "Parent 2 phone" in kid || "Parent 2 Email" in kid) {
 		contact.append(parent2);
 	}
+	var vcardLink = createVcard(kid, true)
+	var qrStr = 'https://chart.googleapis.com/chart?chs=100x100&cht=qr&choe=UTF-8&chld=L|0&chl='+encodeURI(vcardLink.string).replace("'","%27");
+//	div.append("<img src='" + qrStr + "' class='QR''/>");
+
 }
 
 function readData(parent) {

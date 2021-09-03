@@ -1,10 +1,9 @@
-const spData = null;
 const spreadsheetId = '1UX5RQt0-PZAnzXio299JMigi7ijcUnWfHEgRyyOjkjo'
 const sheetName='formatted';
-let kids = {};
-console.log('global');
-
 const kidPicBaseUrl = 'images/kids/';
+let kids = {};
+let spData = null;
+
 
 // function doData(json) {
 // 	spData = json.feed.entry;
@@ -343,7 +342,6 @@ function filterKids(){
 }
 
 $(document).ready(function() {
-	console.log('local');
 	fetch('https://docs.google.com/spreadsheets/d/' + spreadsheetId + '/gviz/tq?tqx=out:json&sheet=' + sheetName)
 	    .then(res => res.text())
 	    .then(text => {

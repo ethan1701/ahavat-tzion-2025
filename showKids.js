@@ -343,15 +343,18 @@ function filterKids(){
 
 $(document).ready(function() {
 	fetch('https://docs.google.com/spreadsheets/d/' + spreadsheetId + '/gviz/tq?tqx=out:json&sheet=' + sheetName)
-	    .then(res => res.text())
-	    .then(text => {
-		spData = JSON.parse(text.substr(47).slice(0, -2)).table;
-		console.log(spData)
-	    });	
-	readData();
-	for (i in kids) {
-		drawDetails($("#data"), kids[i]);
-	}
+		.then(res => res.text())
+		.then(text => {
+			spData = JSON.parse(text.substr(47).slice(0, -2)).table;
+			console.log(spData)
+		})
+		.then(data => {
+			readData();
+			for (i in kids) {
+				drawDetails($("#data"), kids[i]);
+			}
+		})
+
 	if (window.history && window.history.pushState) {
 		window.history.pushState('forward', null, './#forward');
 		$(window).on('popstate', function() {

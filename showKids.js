@@ -278,7 +278,6 @@ function drawDetails(form, kid) {
 }
 
 function readData() {
-	var data = spData;
 	// create array of column titles and corresponding column numbers
 	let titles = {};
 	Object.keys(spData.cols).forEach(function(key) {
@@ -288,7 +287,13 @@ function readData() {
 	Object.keys(spData.rows).forEach(function(key) {
 		kids["kid"+key] = {};
 		Object.keys(spData.rows[key].c).forEach(function(col) {
-			let value = (null === spData.rows[key].c[col].v ? '' : spData.rows[key].c[col].v);
+			let value;
+			try {
+			  value = spData.rows[key].c[col].v;
+			} catch (error) {
+			  console.warn(spData.rows[key].c[0].v + " does not have " + titles[col]);
+			  value = ''
+			}
 			kids["kid"+key][titles[col]] = value;
 		});
 	});

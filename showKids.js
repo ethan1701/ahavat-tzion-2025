@@ -291,7 +291,7 @@ function readData() {
 			// if cell is not null, it will have a (v)alue key. Some also have a (f)ormatted key.
 			// prioritize $.f over $.v
 			let value;
-			if (null = spData.rows[key].c[col]){
+			if (null == spData.rows[key].c[col]){
 				console.warn(spData.rows[key].c[0].v + " does not have " + titles[col]);
 				value = '';
 			}

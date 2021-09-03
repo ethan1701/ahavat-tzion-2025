@@ -290,7 +290,7 @@ function readData() {
 	Object.keys(spData.rows).forEach(function(key) {
 		kids["kid"+key] = {};
 		Object.keys(spData.rows[key].c).forEach(function(col) {
-			kids["kid"+key][titles[col]] = spData.rows[key].c.v;
+			kids["kid"+key][titles[col]] = spData.rows[key].c[col].v;
 		});
 	});
 	

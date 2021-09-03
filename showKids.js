@@ -284,15 +284,24 @@ function readData() {
 	    titles[key] = spData.cols[key].label;
 	});
 
+	// iterate over the kids. create an opject with keys = column names, and each kid's value
 	Object.keys(spData.rows).forEach(function(key) {
 		kids["kid"+key] = {};
 		Object.keys(spData.rows[key].c).forEach(function(col) {
+			// if cell is not null, it will have a (v)alue key. Some also have a (f)ormatted key.
+			// prioritize $.f over $.v
 			let value;
-			try {
-			  value = spData.rows[key].c[col].v;
-			} catch (error) {
-			  console.warn(spData.rows[key].c[0].v + " does not have " + titles[col]);
-			  value = ''
+			if (null = spData.rows[key].c[col]){
+				console.warn(spData.rows[key].c[0].v + " does not have " + titles[col]);
+				value = '';
+			}
+			else {
+				if !(undefined === spData.rows[key].c[col].f){
+					value = spData.rows[key].c[col].f;
+				}
+				else{
+					value = spData.rows[key].c[col].v;
+				}
 			}
 			kids["kid"+key][titles[col]] = value;
 		});

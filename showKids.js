@@ -1,13 +1,23 @@
-var spData = null;
+const spData = null;
+
+const spreadsheetId = '1UX5RQt0-PZAnzXio299JMigi7ijcUnWfHEgRyyOjkjo'
+
+fetch('https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&sheet=formatted')
+    .then(res => res.text())
+    .then(text => {
+        spData = JSON.parse(text.substr(47).slice(0, -2)).table;
+        console.log(spData)
+    });
+
 var kidPicBaseUrl = 'images/kids/';
 
-function doData(json) {
-	spData = json.feed.entry;
-}
+// function doData(json) {
+// 	spData = json.feed.entry;
+// }
 
-function getTitleFromCol(titles, col) {
-	return titles[col];
-}
+// function getTitleFromCol(titles, col) {
+// 	return titles[col];
+// }
 
 function toHumanDate(date) {
 	var options = {
@@ -276,22 +286,35 @@ function drawDetails(form, kid) {
 function readData(parent) {
 	var data = spData;
 	// create array of column titles and corresponding column numbers
-	var titles = {};
-	var kids = {};
-	for (var r = 0; r < data.length; r++) {
-		var cell = data[r]["gs$cell"];
-		var val = cell["$t"];
-		var col = cell["col"];
-		var row = cell["row"];
-		if (row == 1) {
-			titles[col] = val;
-		} else { // let's get some kids!
-			if (col == 1) {
-				kids["kid" + (row - 1)] = {};
-			}
-			kids["kid" + (row - 1)][getTitleFromCol(titles, col)] = val;
-		}
-	}
+	let titles = {};
+	Object.keys(spData.cols).forEach(function(key) {
+	    titles[key] = spData.cols[key].label;
+	});
+// 	for (cols in spData.cols) {
+// 		titles[cols[]]
+// 	}	
+	let kids = {};
+	Object.keys(spData.rows).forEach(function(key) {
+		kids["kid"+key] = {};
+		Object.keys(spData.rows[key].c).forEach(function(col) {
+			kids["kid"+key][titles[col]] = spData.rows[key].c.v;
+		});
+	});
+	
+// 	for (var r = 0; r < data.length; r++) {
+// 		var cell = data[r]["gs$cell"];
+// 		var val = cell["$t"];
+// 		var col = cell["col"];
+// 		var row = cell["row"];
+// 		if (row == 1) {
+// 			titles[col] = val;
+// 		} else { // let's get some kids!
+// 			if (col == 1) {
+// 				kids["kid" + (row - 1)] = {};
+// 			}
+// 			kids["kid" + (row - 1)][getTitleFromCol(titles, col)] = val;
+// 		}
+// 	}
 
 	//   console.log(titles);
 	   console.log(kids);

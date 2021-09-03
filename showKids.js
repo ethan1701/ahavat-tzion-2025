@@ -1,4 +1,5 @@
 const spData = null;
+let kids = {};
 
 const spreadsheetId = '1UX5RQt0-PZAnzXio299JMigi7ijcUnWfHEgRyyOjkjo'
 
@@ -283,7 +284,7 @@ function drawDetails(form, kid) {
 
 }
 
-function readData(parent) {
+function readData() {
 	var data = spData;
 	// create array of column titles and corresponding column numbers
 	let titles = {};
@@ -293,7 +294,6 @@ function readData(parent) {
 // 	for (cols in spData.cols) {
 // 		titles[cols[]]
 // 	}	
-	let kids = {};
 	Object.keys(spData.rows).forEach(function(key) {
 		kids["kid"+key] = {};
 		Object.keys(spData.rows[key].c).forEach(function(col) {
@@ -318,10 +318,6 @@ function readData(parent) {
 
 	//   console.log(titles);
 	   console.log(kids);
-
-	for (i in kids) {
-		drawDetails(parent, kids[i]);
-	}
 }
 
 function filterKids(){
@@ -353,7 +349,10 @@ function filterKids(){
 }
 
 $(document).ready(function() {
-	readData($("#data"));
+	readData();
+	for (i in kids) {
+		drawDetails($("#data"), kids[i]);
+	}
 	if (window.history && window.history.pushState) {
 		window.history.pushState('forward', null, './#forward');
 		$(window).on('popstate', function() {

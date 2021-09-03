@@ -284,33 +284,15 @@ function readData() {
 	Object.keys(spData.cols).forEach(function(key) {
 	    titles[key] = spData.cols[key].label;
 	});
-// 	for (cols in spData.cols) {
-// 		titles[cols[]]
-// 	}	
+
 	Object.keys(spData.rows).forEach(function(key) {
 		kids["kid"+key] = {};
 		Object.keys(spData.rows[key].c).forEach(function(col) {
-			kids["kid"+key][titles[col]] = spData.rows[key].c[col].v;
+			let value = (null === spData.rows[key].c[col].v ? '' : spData.rows[key].c[col].v);
+			kids["kid"+key][titles[col]] = value;
 		});
 	});
-	
-// 	for (var r = 0; r < data.length; r++) {
-// 		var cell = data[r]["gs$cell"];
-// 		var val = cell["$t"];
-// 		var col = cell["col"];
-// 		var row = cell["row"];
-// 		if (row == 1) {
-// 			titles[col] = val;
-// 		} else { // let's get some kids!
-// 			if (col == 1) {
-// 				kids["kid" + (row - 1)] = {};
-// 			}
-// 			kids["kid" + (row - 1)][getTitleFromCol(titles, col)] = val;
-// 		}
-// 	}
-
-	//   console.log(titles);
-	   console.log(kids);
+	console.log(kids);
 }
 
 function filterKids(){

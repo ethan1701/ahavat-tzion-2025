@@ -1,7 +1,7 @@
 const spData = null;
-let kids = {};
-
 const spreadsheetId = '1UX5RQt0-PZAnzXio299JMigi7ijcUnWfHEgRyyOjkjo'
+let kids = {};
+console.log('global');
 
 fetch('https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&sheet=formatted')
     .then(res => res.text())
@@ -349,6 +349,7 @@ function filterKids(){
 }
 
 $(document).ready(function() {
+	console.log('local');
 	readData();
 	for (i in kids) {
 		drawDetails($("#data"), kids[i]);

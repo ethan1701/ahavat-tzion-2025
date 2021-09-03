@@ -344,7 +344,7 @@ function filterKids(){
 
 $(document).ready(function() {
 	console.log('local');
-	fetch(`https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json&sheet=${sheetName}`)
+	fetch('https://docs.google.com/spreadsheets/d/' + spreadsheetId + '/gviz/tq?tqx=out:json&sheet=' + sheetName)
 	    .then(res => res.text())
 	    .then(text => {
 		spData = JSON.parse(text.substr(47).slice(0, -2)).table;

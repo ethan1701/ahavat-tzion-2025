@@ -296,7 +296,7 @@ function readData() {
 				value = '';
 			}
 			else {
-				if !(undefined === spData.rows[key].c[col].f){
+				if (!(undefined === spData.rows[key].c[col].f)){
 					value = spData.rows[key].c[col].f;
 				}
 				else{

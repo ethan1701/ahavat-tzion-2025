@@ -10,7 +10,7 @@
 
 function drawMap(markers='{"addresses":[{"title":"nowhere","latlng":{"lat": 0, "lng": 0}}]}') {
 	markers = JSON.parse(markers);
-//	console.log(markers);
+	console.log(markers);
 
   const position = markers.addresses[0].latlng;
 

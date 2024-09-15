@@ -1,4 +1,4 @@
-const spreadsheetId = '1UX5RQt0-PZAnzXio299JMigi7ijcUnWfHEgRyyOjkjo'
+const spreadsheetId = '1-qcyzuIzCxYypXnDvzkTpOmPD1wOmmgJ1hkoBl63DyM'
 const sheetName='formatted';
 const kidPicBaseUrl = 'images/kids/';
 let kids = {};
@@ -46,7 +46,7 @@ function createVcard(kid, includePic) {
 		version: "3.0",
 		n: kid["Last_Name"] + ";" + kid["First_Name"] + ";",
 		fn: kid["Full Name"],
-		org: "אהבת ציון;תשע\"ט;א' 3",
+		org: "אהבת ציון א4",
 		adr: [],
 		tel: [],
 		email: []
@@ -108,7 +108,7 @@ function createVcard(kid, includePic) {
 
 	// generate base64 for image, if needed
 	if (includePic) {
-		var kidPicAddress = kidPicBaseUrl + kid["photoName"] + '.jpg';
+		var kidPicAddress = kid["pic"];
 		getPicBase64(kidPicAddress, function(photo){
 			vcard.photo = 'photo';
 //			console.log(photo);
@@ -131,6 +131,7 @@ function showDetails(kid) {
 	details = $("<div class = 'kid' />");
 //	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
 	var imgURL = kidPicBaseUrl + kid["photoName"]+ '.jpg'
+	var imgURL = kid["pic"]
 	var img = $("<img onerror='$(this).attr(\"src\",\"images/transparent.png\");' src='" + imgURL + "' class='kidpic'/>");
 	details.append(img);
 
@@ -232,7 +233,7 @@ function drawDetails(form, kid) {
 	});
 	// http://www.husky-owners.com/forum/uploads/monthly_2015_06/558fcc225abae_photo.thumb_jpgsz256.65bbc89b7dc3a7d0047f701989439647
 //	var imgURL = ("ImageID" in kid) ? "https://drive.google.com/uc?export=view&id=" + kid["ImageID"] : "";
-	var imgURL = kidPicBaseUrl + kid["photoName"]+ '.jpg'
+	var imgURL = kid["pic"]
 	var img = $("<img onerror='$(this).attr(\"src\",\"images/transparent.png\");' src='" + imgURL + "' class='kidpic' />");
 	var name = $("<div class = 'fullName'/>");
 	var info = $("<div class='info'/>");

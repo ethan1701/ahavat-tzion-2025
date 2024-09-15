@@ -8,7 +8,7 @@
 
 // });
 
-function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}') {
+function drawMap(markers='{"addresses":[{"title":"nowhere","latlng":"0, 0"}]}') {
 	markers = JSON.parse(markers);
 //	console.log(markers);
 	
@@ -27,7 +27,7 @@ function drawMap(markers='{"addresses":[{"title":"nowhere","lat":0, "long":0}]}'
     
     // Loop through our array of markers & place each one on the map  
     for( i = 0; i < markers.addresses.length; i++ ) {
-		var position = new google.maps.LatLng(markers.addresses[i].lat, markers.addresses[i].long);
+		var position = new google.maps.LatLng(markers.addresses[i].latlng);
         bounds.extend(position);
         marker = new google.maps.Marker({
             position: position,

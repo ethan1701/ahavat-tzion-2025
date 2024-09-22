@@ -273,7 +273,7 @@ function drawDetails(form, kid) {
 	}
 	var vcardLink = createVcard(kid, true)
 	console.log(vcardLink.string);
-	var qrStr = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&choe=UTF-8&chld=L|0&chl='+encodeURI(vcardLink.string).replace(/'/g,"%27");
+	var qrStr = 'https://quickchart.io/qr?text='+encodeURI(vcardLink.string).replace(/'/g,"%27");
 	div.append("<img src='" + qrStr + "' class='QR''/>");
 
 }

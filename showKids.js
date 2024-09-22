@@ -273,8 +273,8 @@ function drawDetails(form, kid) {
 	}
 	var vcardLink = createVcard(kid, true)
 	console.log(vcardLink.string);
-	var qrStr = 'https://quickchart.io/qr?text='+encodeURI(vcardLink.string).replace(/'/g,"%27");
-	div.append("<img src='" + qrStr + "' class='QR''/>");
+	// var qrStr = 'https://quickchart.io/qr?text='+encodeURI(vcardLink.string).replace(/'/g,"%27");
+	// div.append("<img src='" + qrStr + "' class='QR''/>");
 
 }
 
